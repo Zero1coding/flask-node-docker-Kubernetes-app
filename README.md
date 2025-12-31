@@ -38,52 +38,57 @@ kubernetes-flask-node-app/
 
 Follow the steps below in order. All commands can be run from the project root directory.
 
-```bash
 # STEP 1: Start Minikube using Docker driver
 # This creates a local Kubernetes cluster
+
+```bash
 minikube start --driver=docker
 ```
-```bash
+
 # STEP 2: Verify Kubernetes node is running
 # Status should be Ready
+```bash
 kubectl get nodes
 ```
-```bash
+
 # STEP 3: Configure Docker to use Minikube environment
 # This ensures Docker images are built inside Minikube
+```bash
 minikube -p minikube docker-env
 ```
-```bash
 # If you are using Windows PowerShell, run this command instead:
 # & minikube -p minikube docker-env | Invoke-Expression
-```
-```bash
+
 # STEP 4: Build Docker image for Flask backend
+```bash
 docker build -t flask-backend:1.0 ./backend
 ```
-```bash
 # STEP 5: Build Docker image for Express frontend
 docker build -t node-frontend:1.0 ./frontend
 ```
-```bash
+
 # STEP 6: Deploy all Kubernetes resources (Deployments and Services)
+```bash
 kubectl apply -f k8s/
 ```
-```bash
 # STEP 7: Verify that pods are running
 # Status should be Running
+```bash
 kubectl get pods
 ```
-```bash
 # STEP 8: Verify deployments
+```bash
 kubectl get deployments
-
+```
 # STEP 9: Verify services
 # Frontend service should be of type NodePort
+```bash
 kubectl get services
-
+```
 # STEP 10: Access the frontend application in browser
 # This command opens the application automatically
+```bash
 minikube service node-frontend-service
 ```
+
 
